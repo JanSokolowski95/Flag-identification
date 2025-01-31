@@ -26,7 +26,9 @@ class Classifier(L.LightningModule):
 
         """
         super().__init__()
-        model = torchvision.models.resnet34(pretrained=True)
+        model = torchvision.models.resnet34(
+            weights=torchvision.models.ResNet34_Weights.DEFAULT
+        )
         model.fc = torch.nn.LazyLinear(194)
         self.model = model
         self.loss_fn = torch.nn.CrossEntropyLoss()

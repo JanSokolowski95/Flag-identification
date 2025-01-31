@@ -7,7 +7,6 @@ from lightning.pytorch.callbacks import ModelCheckpoint
 from flags_data_module import FlagsDataModule
 from model import Classifier
 import torch
-import glob
 from PIL import Image
 import pathlib
 from torchvision.transforms.functional import pil_to_tensor

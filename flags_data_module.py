@@ -3,7 +3,6 @@ import lightning as L
 from flags_dataset import FlagsDataset
 import torch
 from torch.utils.data import random_split, DataLoader
-import os
 
 
 class FlagsDataModule(L.LightningDataModule):

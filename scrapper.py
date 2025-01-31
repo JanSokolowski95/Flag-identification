@@ -2,9 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from io import StringIO, BytesIO
-from pathlib import Path
 import re
-import os
 from PIL import Image
 from tqdm import tqdm
 import pathlib
@@ -104,7 +102,7 @@ class Scrapper:
             elif country == "Romania":
                 country = "either Chad or Romania"
             current_path = path / country
-            if not country in countries:
+            if country not in countries:
                 countries[country] = 0
             else:
                 countries[country] += 1
