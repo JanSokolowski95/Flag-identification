@@ -23,6 +23,14 @@ import pathlib
 
 
 def preprocess(img):
+    """Preprocess the image to make it square and fill the background with a color.
+
+    Args:
+        img (Image):
+            The image to be preprocessed.
+
+    """
+    # Purple is the least common color used in flags, so I'm padding using purple, instead of standard black
     fill_color = (179, 0, 255)
     rgb_im = img.convert("RGB")
     img_w, img_h = rgb_im.size
@@ -34,10 +42,34 @@ def preprocess(img):
 
 
 class Scrapper:
-    def _get_images(self, table):
+    """Scrapper class to download images of flags from Wikipedia and preprocess them."""
+
+    def _get_images(self, table) -> list[str]:
+        """Get the images from the table.
+
+        Args:
+            table:
+                The table containing the images.
+
+        Returns:
+            list:
+                A list of URLs of the images.
+
+        """
         return ["https:" + e.get("src") for e in table.select('img[src*=".svg.png"]')]
 
-    def _get_countries(self, table):
+    def _get_countries(self, table) -> list[str]:
+        """Get the countries from the table.
+
+        Args:
+            table:
+                The table containing the countries.
+
+        Returns:
+            list:
+                A list of countries.
+
+        """
         countries_df = pd.read_html(StringIO(str(table)))
         return [re.sub("\[.\]", "", country) for country in countries_df[0]["State"]]
 
@@ -45,7 +77,16 @@ class Scrapper:
         self,
         path: str | pathlib.Path,
         url="https://en.wikipedia.org/wiki/Gallery_of_sovereign_state_flags",
-    ):
+    )-> None: 
+        """Scrape the images of flags from Wikipedia and preprocess them.
+
+        Args:
+            path (str or Path):
+                The path where the images will be saved.
+            url (str):
+                The URL of the Wikipedia page with the flags.
+
+        """
         path = pathlib.Path(path)
 
         response = requests.get(url)
@@ -73,10 +114,3 @@ class Scrapper:
 
             new_img = preprocess(img)
             new_img.save((current_path / str(countries[country])).with_suffix(".jpg"))
-
-            # with (
-            #     (current_path / str(countries[country]))
-            #     .with_suffix(".jpg")
-            #     .open("xb") as f
-            # ):
-            #     f.write(requests.get(image).content)

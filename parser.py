@@ -3,6 +3,11 @@ import pathlib
 
 
 def args() -> argparse.Namespace:
+    """Parse the command line arguments.
+
+    Returns:
+        argparse.Namespace: The parsed arguments.
+    """
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="commands")
     download(subparsers)
@@ -14,7 +19,13 @@ def args() -> argparse.Namespace:
 
 
 def download(subparsers) -> None:
-    # Download data
+    """Add the download subparser.
+
+    Args:
+        subparsers:
+            The subparsers to which the download
+            subparser will be added.
+    """
     download_parser = subparsers.add_parser("download")
     download_parser.add_argument(
         "--path",
@@ -29,7 +40,13 @@ def download(subparsers) -> None:
 
 
 def train(subparsers) -> None:
-    # Train model
+    """Add the train subparser.
+
+    Args:
+        subparsers:
+            The subparsers to which the train
+            subparser will be added.
+    """
     train_parser = subparsers.add_parser("train")
     train_parser.add_argument(
         "--path",
@@ -44,7 +61,13 @@ def train(subparsers) -> None:
 
 
 def predict(subparsers) -> None:
-    # Predict
+    """Add the predict subparser.
+
+    Args:
+        subparsers:
+            The subparsers to which the predict
+            subparser will be added.
+    """
     predict_parser = subparsers.add_parser("predict")
     predict_parser.add_argument(
         "--path",
@@ -63,7 +86,13 @@ def predict(subparsers) -> None:
 
 
 def pipeline(subparsers) -> None:
-    # Whole pipeline
+    """Add the pipeline subparser.
+
+    Args:
+        subparsers:
+            The subparsers to which the pipeline
+            subparser will be added.
+    """
     pipeline_parser = subparsers.add_parser("pipeline")
     pipeline_parser.add_argument(
         "--path",

@@ -5,23 +5,24 @@ import torch
 from torchvision.transforms import v2
 
 
-transforms = v2.Compose(
-    [
-        v2.ColorJitter(0.2, 0.2, 0.2),
-        v2.RandomApply(
-            [
-                v2.RandomRotation(degrees=(-5, 5)),
-                v2.GaussianBlur(kernel_size=(7, 7)),
-                v2.ElasticTransform(alpha=20.0),
-            ],
-            p=0.3,
-        ),
-    ]
-)
-
-
 class FlagsDataset(Dataset):
-    def __init__(self, img_dir, transform=transforms):
+    """PyTorch Dataset class for flags images.
+
+    Note:
+        Images are loaded in memory once
+        for faster processing.
+
+    Attributes:
+        img_labels:
+            A list of tuples containing the index of the image
+            (label) and its path containing flag name.
+        images:
+            A list of images in tensor format.
+        transform:
+            A transformation to apply to the images.
+
+    """
+    def __init__(self, img_dir, transform):
         print(img_dir)
         self.img_labels = [
             (idx, flag / img_name)
