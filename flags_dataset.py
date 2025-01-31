@@ -22,6 +22,7 @@ class FlagsDataset(Dataset):
             A transformation to apply to the images.
 
     """
+
     def __init__(self, img_dir, transform):
         print(img_dir)
         self.img_labels = [

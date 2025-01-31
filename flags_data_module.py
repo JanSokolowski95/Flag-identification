@@ -23,6 +23,7 @@ class FlagsDataModule(L.LightningDataModule):
             e.g. batch_size, num_workers, etc.
 
     """
+
     def __init__(self, path: str, transform: torch.nn.Module = None, **kwargs) -> None:
         """Initializes FlagsDataModule.
 

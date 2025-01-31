@@ -16,6 +16,7 @@ class Classifier(L.LightningModule):
             Accuracy metric.
 
     """
+
     def __init__(self, num_classes: int = 194):
         """Initializes the model.
 

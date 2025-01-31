@@ -77,7 +77,7 @@ class Scrapper:
         self,
         path: str | pathlib.Path,
         url="https://en.wikipedia.org/wiki/Gallery_of_sovereign_state_flags",
-    )-> None: 
+    ) -> None:
         """Scrape the images of flags from Wikipedia and preprocess them.
 
         Args:

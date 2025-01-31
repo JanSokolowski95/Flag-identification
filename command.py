@@ -3,7 +3,6 @@ import argparse
 import lightning as L
 
 from scrapper import Scrapper
-from augmentator import Augmentator
 from lightning.pytorch.callbacks import ModelCheckpoint
 from flags_data_module import FlagsDataModule
 from model import Classifier
@@ -12,6 +11,8 @@ import glob
 from PIL import Image
 import pathlib
 from torchvision.transforms.functional import pil_to_tensor
+from torchvision.transforms import v2
+from scrapper import preprocess
 
 
 def download(args: argparse.Namespace):
@@ -38,8 +39,8 @@ def train(args: argparse.Namespace):
             about the arguments.
 
     """
-    data_module = FlagsDataModule(path=args.path)
-    trainer = L.Trainer(
+    data_module = FlagsDataModule(
+        path=args.path,
         transform=v2.Compose(
             [
                 v2.ColorJitter(0.2, 0.2, 0.2),
@@ -53,6 +54,9 @@ def train(args: argparse.Namespace):
                 ),
             ]
         ),
+    )
+
+    trainer = L.Trainer(
         check_val_every_n_epoch=1,
         max_epochs=100,
         precision="16-mixed",
@@ -88,8 +92,9 @@ def predict(args: argparse.Namespace):
     model = Classifier.load_from_checkpoint(last_checkpoint)
 
     img = Image.open(args.path)
+    new_img = preprocess(img)
 
-    tensor = pil_to_tensor(img).to(device="cuda").float()
+    tensor = pil_to_tensor(new_img).to(device="cuda").float()
     tensor = tensor[None, :, :, :]
 
     print("--------------------------------------------")

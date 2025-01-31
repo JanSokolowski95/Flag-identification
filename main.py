@@ -1,18 +1,6 @@
-# from scrapper import Scrapper
-# from augmentator import Augmentator
-# from data_splitter import DataSplitter
-# from flags_dataset import FlagsDataset
-
 import sys
 
-from torch.utils.data import random_split
-import torchvision
-import os
-import pathlib
-import torch
-from torchvision import transforms
 import lightning as L
-import argparse
 
 import parser
 import command
