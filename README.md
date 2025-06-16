@@ -1,4 +1,4 @@
-# Ardigen-task
+# Flag identification
 
 To run this code, you have to have conda installed (I used miniconda).
 
